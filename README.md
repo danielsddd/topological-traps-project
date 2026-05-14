@@ -1,222 +1,590 @@
 # Directional Topological Traps
 
-**TAU Algorithmic Robotics — Final Project**
-
 A deep learning system that predicts heading-dependent viability maps for
-non-holonomic robot navigation, with a custom Trap-Aware PRM planner that uses
-the trained model to avoid topological traps during path planning.
+non-holonomic robot navigation.  A rectangular robot that enters a narrow
+corridor from the wrong heading can become permanently trapped — it cannot
+rotate to escape.  This project learns to predict those traps in real time
+and uses the predictions to guide a sampling-based motion planner away from
+dangerous regions.
+
+**Course:** Algorithmic Robotics and Motion Planning — Fall 2025/2026 — Dan Halperin, TAU  
+**Author:** Daniel Simanovsky  
+**Submission deadline:** Sunday, March 22, 2026
 
 ---
 
-## Problem
+## Table of Contents
 
-Non-holonomic robots (cars, forklifts, AMRs) cannot move in arbitrary directions.
-In cluttered environments this creates **topological traps**: regions the robot can
-enter but cannot escape due to its turning-radius constraint.
-
-Detecting traps analytically requires morphological erosion followed by directional
-BFS — accurate but slow (200–400 ms per map). This project trains a U-Net to predict
-the same viability maps in **~14 ms** (up to 20× speedup), enabling real-time
-trap-aware planning.
-
----
-
-## Method
-
-### Oracle (ground truth label generation)
-1. **Rotation check** — morphological erosion with a disc of radius `max(L, W) / 2`
-   identifies pixels where the robot can rotate freely in place.
-2. **Translation check** — oriented bounding-box erosion per heading identifies
-   pixels where the robot body fits when translating North / South / East / West.
-3. **Directional BFS** — reverse flood-fill from rotation-safe seeds through
-   translation-safe pixels labels each free pixel as *viable* or *trapped*
-   per cardinal direction.
-
-### Neural Network
-- **Architecture**: U-Net with pretrained ResNet34 encoder (~24 M parameters)
-- **Input**: 3 channels — occupancy grid, normalised robot length, normalised robot width
-- **Output**: 4 channels — binary viability map [North, South, East, West]
-- **Loss**: Combined BCE + Dice
-- **Training**: Mixed precision (FP16), AdamW, cosine LR schedule, early stopping
-
-### Training Modes (`--oracle_type`)
-
-| Mode | Input channels | Output | Task |
-|---|---|---|---|
-| `basic` | 3 (occ, L, W) | 4-ch binary | Cardinal-direction viability |
-| `continuous_angle` | 5 (+ sin θ, cos θ) | 1-ch binary | Arbitrary heading angle |
-| `cost_map` | 3 (occ, L, W) | 4-ch float | Escape distance regression |
-| `velocity` | 4 (+ v_norm) | 4-ch binary | Velocity-dependent viability |
+1. [Overview](#overview)
+2. [Repository Structure](#repository-structure)
+3. [Prerequisites](#prerequisites)
+4. [Installation](#installation)
+5. [Configuration](#configuration)
+6. [Data Pipeline](#data-pipeline)
+7. [Training](#training)
+8. [Evaluation](#evaluation)
+9. [PRM Benchmark — TrapAwarePRM vs StandardPRM](#prm-benchmark--trapaware-prm-vs-standard-prm)
+10. [Generating Report Figures](#generating-report-figures)
+11. [SLURM Quick Reference](#slurm-quick-reference)
+12. [Troubleshooting](#troubleshooting)
 
 ---
 
-## Key Results
+## Overview
 
-### Model accuracy vs naive baseline
+### Problem
 
-| Model | Val IoU | Naive baseline | Gap over naive | Speedup vs Oracle |
-|---|---|---|---|---|
-| Binary viability (4-dir) | 0.9779 | 0.713 | +0.265 | 16× |
-| Continuous-angle | 0.9838 | 0.713 | +0.271 | 19× |
-| Velocity-aware | 0.9954 | 0.713 | +0.282 | 16× |
-| Escape-distance (MAE) | 10.7 px | — | Pearson r = 0.679 | 21× |
+A rectangular non-holonomic robot (e.g. a forklift) moving through an indoor
+environment can enter regions where its heading makes escape impossible — it
+physically cannot rotate or translate out.  Classical planners discover these
+*topological traps* only after expensive collision checking, wasting samples
+and computation.
 
-*Naive baseline = predict all free space as viable. 28.7% of free pixels are
-genuinely trapped, making this a non-trivial task.*
+### Approach
 
-### Velocity experiment — viable area shrinks with speed
+1. **Oracle algorithm** — morphological erosion (rotation check) + directional
+   BFS flood-fill (escape viability) computes ground-truth binary viability
+   maps for 4 cardinal headings (N / S / E / W).  Accurate but slow (~2 s
+   per 512×512 map).
 
-| Speed (m/s) | Viable% | IoU |
-|---|---|---|
-| 0.0 | 38.8% | 0.991 |
-| 1.5 | 37.0% | 0.992 |
-| 3.0 | 35.2% | 0.991 |
+2. **U-Net** — learns to predict the Oracle's output from the occupancy grid
+   and normalised robot dimensions.  Fast (~5 ms per map on GPU).
 
-### Warehouse PRM benchmark (67% trap density)
+3. **TrapAwarePRM** — a pure-NumPy PRM planner that uses the learned viability
+   map to reject low-viability samples and penalise trap-crossing edges,
+   reducing trap encounters by ~80% compared to uniform sampling.
 
-| Planner | Trap rate | Reduction vs Standard |
-|---|---|---|
-| Standard PRM | 0.673 | — |
-| TrapAwarePRM (Oracle) | 0.123 | 81.8% |
-| TrapAwarePRM (NN) | 0.125 | **81.4%** |
+### Key numbers
 
-The NN matches Oracle trap-avoidance quality at 13.6× lower labelling cost.
-
----
-
-## Stack
-
-| Component | Tool |
+| Item | Value |
 |---|---|
-| Language | Python 3.10 |
-| Deep learning | PyTorch 2.x, segmentation-models-pytorch |
-| Data processing | NumPy, OpenCV, SciPy |
-| PRM planner | Pure NumPy (StandardPRM + TrapAwarePRM) |
-| Experiment tracking | Weights & Biases |
-| Compute | GeForce 2080 (8 GB) / Titan XP (12 GB) |
-| Conda environment | `traps` |
+| Architecture | U-Net, ResNet-34 encoder (ImageNet pretrained) |
+| Input | 3 channels — occupancy grid + normalised robot L, W |
+| Output | 4 channels — binary viability for N, S, E, W |
+| Parameters | ~24 M |
+| Training data | 800 HouseExpo maps × 3 robot sizes |
+| Generalisation test | 1 held-out robot size |
+| Inference | ~5 ms / map on GPU (mixed precision, FP16) |
 
 ---
 
-## Setup
-
-```bash
-conda activate traps
-pip install -r requirements.txt
-```
-
-All paths are controlled by `configs/config.yaml` and `configs/.env`.
-No hardcoded paths exist anywhere in the codebase.
-
----
-
-## Directory Structure
+## Repository Structure
 
 ```
 project2/
 ├── configs/
-│   ├── config.yaml          # Model, training, and data hyperparameters
-│   └── .env                 # Environment paths
+│   ├── .env                          # All paths (single source of truth)
+│   ├── config.yaml                   # Hyperparameters, model, data settings
+│   └── config_schema.py              # Dataclass schema for config.yaml
+│
 ├── data/
-│   ├── processed/           # 512×512 occupancy grids (.npy)
-│   ├── labels/              # Oracle viability labels, one dir per robot size
-│   │   ├── robot_20x15/
-│   │   ├── robot_30x20/
-│   │   ├── robot_40x25/
-│   │   └── robot_25x18/     # OOD test size — never seen during training
-│   └── manifest.csv         # Map-level train / val / test split
-├── src/                     # All library code (importable modules)
-│   ├── oracle/              # Ground-truth label generation
-│   ├── models/              # U-Net, losses, metrics
-│   ├── data/                # Dataset classes and augmentations
-│   ├── training/            # Trainer, checkpointing, logging
-│   ├── evaluation/          # Evaluator, generalization, speed benchmark
-│   ├── integration/         # TrapAwarePRM planner (pure NumPy)
-│   ├── experiments/         # Extended oracle datasets (velocity, cost map)
-│   └── visualization/       # Plotting utilities
-├── scripts/                 # All runnable entry points
-├── outputs/                 # Checkpoints, figures, JSON results (gitignored)
-├── logs/                    # Training logs, TensorBoard events
-├── RESULTS.md               # Full experimental results with figures
-└── generate_readmes.py      # This script
+│   ├── raw_maps/                     # HouseExpo JSON files
+│   ├── processed/                    # 512×512 occupancy grids (.npy)
+│   ├── labels/                       # Oracle viability labels
+│   │   ├── robot_6x4/               # Small   (TRAIN)
+│   │   ├── robot_10x6/              # Medium  (TRAIN)
+│   │   ├── robot_14x9/              # Large   (TRAIN)
+│   │   └── robot_18x11/             # X-Large (TEST-ONLY — generalisation)
+│   └── manifest.csv                  # Map-level train / val / test split
+│
+├── src/
+│   ├── oracle/                       # Erosion + BFS viability oracle
+│   ├── models/                       # U-Net architecture, losses, metrics
+│   ├── data/                         # Dataset, DataLoader, augmentations
+│   ├── training/                     # Trainer, callbacks, checkpointing
+│   ├── evaluation/                   # Evaluator, generalisation, speed bench
+│   ├── integration/                  # Pure-NumPy PRM planners
+│   │   ├── prm.py                   # StandardPRM + TrapAwarePRM
+│   │   └── README.md
+│   ├── experiments/                  # Extended oracles (angle, cost-map, velocity)
+│   ├── visualization/                # Training curves, prediction viewer, figures
+│   └── utils/                        # Device helpers, verify_setup, misc
+│
+├── scripts/
+│   ├── local/                        # Data pipeline scripts (run locally / CPU)
+│   │   ├── 01_explore_dataset.py
+│   │   ├── 02_preprocess_maps.py
+│   │   ├── 03_create_manifest.py
+│   │   ├── 04_generate_labels.py
+│   │   └── 05_verify_labels.py
+│   ├── train.py                      # Main training entry point
+│   ├── evaluate.py                   # Main evaluation
+│   ├── benchmark_prm.py             # TrapAwarePRM vs StandardPRM on test maps
+│   ├── benchmark_prm_hard.py        # Warehouse (synthetic) benchmark
+│   ├── demo_angle_sweep.py          # Animated heading-sweep demo
+│   └── slurm/
+│       ├── _header.sh               # Shared SLURM preamble
+│       ├── preprocess.sh            # CPU job: map preprocessing
+│       ├── oracle.sh                # CPU job: oracle label generation
+│       └── train.sh                 # GPU job: model training
+│
+├── checkpoints/                      # Saved model weights (best + last)
+├── logs/                             # SLURM logs, TensorBoard, GPU utilisation
+├── outputs/
+│   ├── figures/                      # All generated figures
+│   └── results/                      # JSON evaluation results
+├── requirements.txt
+└── README.md                         # ← you are here
 ```
 
 ---
 
-## Quick Start
+## Prerequisites
 
-### 1 — Generate oracle labels
+- **Python 3.10**
+- **CUDA 11.8+** compatible GPU (tested on GeForce 2080 8 GB / Titan XP 12 GB)
+- **Conda** (Miniconda or Anaconda)
+- **Git**
+- (TAU cluster) SSH access to SLURM via university VPN
+
+---
+
+## Installation
+
+### Option A — TAU SLURM cluster
+
 ```bash
+# 1. Connect via VPN, then SSH to the SLURM client
+ssh <TAU_USERNAME>@kilonova.cs.tau.ac.il
+ssh -o ServerAliveInterval=60 <TAU_USERNAME>@slurm-client.cs.tau.ac.il
+tmux new -s traps
+bash
+
+# 2. Set base path (adjust to your allocation)
+export BASE_DIR="<YOUR_STORAGE_PATH>"
+export PROJECT_DIR="$BASE_DIR/project2"
+
+# 3. Clone repository
+mkdir -p "$PROJECT_DIR" && cd "$PROJECT_DIR"
+git clone <REPO_URL> .
+
+# 4. Create conda environment
+source "$BASE_DIR/anaconda3/etc/profile.d/conda.sh"
+conda create -n traps python=3.10 -y
+conda activate traps
+
+# 5. Install PyTorch with CUDA
+conda install pytorch torchvision pytorch-cuda=11.8 -c pytorch -c nvidia -y
+
+# 6. Install project dependencies
+pip install -r requirements.txt
+
+# 7. Create directory structure
+mkdir -p data/{raw_maps,processed}
+mkdir -p data/labels/{robot_6x4,robot_10x6,robot_14x9,robot_18x11}
+mkdir -p logs/{slurm/{train,oracle,preprocess},tensorboard,gpu_usage}
+mkdir -p checkpoints
+mkdir -p outputs/{figures,results,visualizations}
+
+# 8. Set up persistent cache (keeps ImageNet weights across jobs)
+mkdir -p "$BASE_DIR/.cache/torch"
+export TORCH_HOME="$BASE_DIR/.cache/torch"
+export HF_HOME="$BASE_DIR/.cache"
+
+# 9. Verify installation
+python -c "
+import torch, cv2, numpy, yaml, segmentation_models_pytorch as smp
+print(f'PyTorch {torch.__version__}  |  CUDA: {torch.cuda.is_available()}')
+print(f'OpenCV  {cv2.__version__}    |  SMP: OK')
+print('ALL OK')
+"
+```
+
+### Option B — Local machine / generic Linux
+
+```bash
+git clone <REPO_URL>
+cd topological-traps
+
+conda create -n traps python=3.10 -y
+conda activate traps
+conda install pytorch torchvision pytorch-cuda=11.8 -c pytorch -c nvidia -y
+pip install -r requirements.txt
+
+# Create directories
+mkdir -p data/{raw_maps,processed}
+mkdir -p data/labels/{robot_6x4,robot_10x6,robot_14x9,robot_18x11}
+mkdir -p logs checkpoints outputs/{figures,results}
+```
+
+### requirements.txt
+
+```
+segmentation-models-pytorch==0.3.4
+opencv-python-headless
+numpy
+scipy
+pandas
+matplotlib
+seaborn
+tqdm
+pyyaml
+tensorboard
+albumentations
+```
+
+### Verify setup
+
+A built-in verification utility checks packages, CUDA, directories, and the
+config file in one shot:
+
+```bash
+python -c "from src.utils import verify_setup; verify_setup()"
+```
+
+---
+
+## Configuration
+
+All configuration is centralised in two files.
+
+### `configs/.env` — paths (sourced by every SLURM script)
+
+```bash
+export BASE_DIR="<YOUR_STORAGE_PATH>"
+export PROJECT_DIR="$BASE_DIR/project2"
+export CONDA_SH="$BASE_DIR/anaconda3/etc/profile.d/conda.sh"
+export CONDA_ENV="traps"
+export TORCH_HOME="$BASE_DIR/.cache/torch"
+export HF_HOME="$BASE_DIR/.cache"
+export TOKENIZERS_PARALLELISM="false"
+
+export RAW_MAPS_DIR="$PROJECT_DIR/data/raw_maps"
+export PROCESSED_DIR="$PROJECT_DIR/data/processed"
+export LABELS_DIR="$PROJECT_DIR/data/labels"
+export MANIFEST_PATH="$PROJECT_DIR/data/manifest.csv"
+export CHECKPOINT_DIR="$PROJECT_DIR/checkpoints"
+export LOG_DIR="$PROJECT_DIR/logs"
+export OUTPUT_DIR="$PROJECT_DIR/outputs"
+export FIGURES_DIR="$PROJECT_DIR/outputs/figures"
+export RESULTS_DIR="$PROJECT_DIR/outputs/results"
+```
+
+If you run on a different machine, edit **only** this file.
+
+### `configs/config.yaml` — hyperparameters
+
+Contains sections for `data`, `robot`, `oracle`, `model`, `training`,
+`evaluation`, and `logging`.  Every script loads it via:
+
+```python
+from src.config import load_config
+cfg = load_config()              # reads configs/config.yaml
+cfg = load_config("other.yaml")  # or an explicit path
+```
+
+Environment variables in `.env` override the corresponding `paths:` entries
+in `config.yaml`, so the YAML can stay generic while `.env` pins the
+machine-specific paths.
+
+---
+
+## Data Pipeline
+
+Run these steps **in order**.  Each script is idempotent — re-running skips
+files that already exist.
+
+### Step 1 — Explore raw data (optional)
+
+```bash
+python scripts/local/01_explore_dataset.py --config configs/config.yaml
+```
+
+Prints statistics about the HouseExpo JSON files in `data/raw_maps/`.
+
+### Step 2 — Preprocess maps
+
+Convert HouseExpo JSON floor plans to 512×512 binary occupancy grids (`.npy`).
+
+```bash
+# Locally
+python scripts/local/02_preprocess_maps.py --config configs/config.yaml
+
+# On SLURM
+sbatch scripts/slurm/preprocess.sh
+```
+
+Output: `data/processed/<map_id>.npy` — one file per map.
+
+### Step 3 — Create train / val / test manifest
+
+```bash
+python scripts/local/03_create_manifest.py --config configs/config.yaml
+```
+
+Output: `data/manifest.csv` with columns `map_id, split` (train / val / test).
+The split is at map level so no map leaks across splits.
+
+### Step 4 — Generate Oracle labels
+
+The Oracle applies morphological erosion (rotation check) then directional
+BFS flood-fill (escape viability) for each of the 4 cardinal headings.
+Parallelised across maps and directions via multiprocessing.
+
+```bash
+# Locally (slow — one map at a time)
 python scripts/local/04_generate_labels.py --config configs/config.yaml
+
+# On SLURM (recommended — 16 CPUs)
+sbatch scripts/slurm/oracle.sh
+
+# Quick test with 10 maps
+python scripts/local/04_generate_labels.py --config configs/config.yaml --max-maps 10
+
+# Force recompute (ignores existing labels)
+python scripts/local/04_generate_labels.py --config configs/config.yaml --force
+
+# Verify existing labels only (no generation)
+python scripts/local/04_generate_labels.py --config configs/config.yaml --verify-only
 ```
 
-### 2 — Train
+Output: `data/labels/robot_<L>x<W>/<map_id>.npy` — shape `(4, 512, 512)`,
+channels ordered N, S, E, W.  Values are binary (0 = trapped, 1 = viable).
+
+### Step 5 — Visual sanity check ("eye test")
+
 ```bash
-# Basic 4-direction binary model
-python scripts/train.py --config configs/config.yaml --oracle_type basic
-
-# Velocity-aware model
-python scripts/train.py --config configs/config.yaml --oracle_type velocity --epochs 50
-
-# Cost-map regression model
-python scripts/train.py --config configs/config.yaml --oracle_type cost_map --epochs 30
-
-# Continuous-angle model
-python scripts/train.py --config configs/config.yaml --oracle_type continuous_angle --epochs 30
+python scripts/local/05_verify_labels.py --config configs/config.yaml
 ```
 
-### 3 — Evaluate
+Renders a grid of (occupancy map, oracle labels) pairs so you can verify the
+labels look correct before committing to a training run.
+
+---
+
+## Training
+
+### Basic training (4-direction binary viability)
+
 ```bash
-python scripts/evaluate.py \
-    --checkpoint outputs/viability_<run>/checkpoints/best_iou.pth \
-    --config configs/config.yaml
+# Local / interactive
+python scripts/train.py --config configs/config.yaml
 
-python scripts/evaluate_velocity.py \
-    --checkpoint outputs/viability_velocity_<run>/checkpoints/best_iou.pth \
-    --velocities 0.0 0.5 1.0 1.5 2.0 2.5 3.0 \
-    --robot-size 30 20
+# Resume from checkpoint after preemption
+python scripts/train.py --config configs/config.yaml \
+    --resume checkpoints/last.pth
 
-python scripts/evaluate_cost_map.py \
-    --checkpoint outputs/viability_cost_map_<run>/checkpoints/last.pth \
-    --config configs/config.yaml
+# On SLURM
+sbatch scripts/slurm/train.sh
 ```
 
-### 4 — PRM benchmark
+The training script uses mixed precision (FP16), saves `last.pth` every epoch
+and `best_iou.pth` on validation improvement, and supports graceful resume
+after SLURM preemption.
+
+### Alternative oracle types
+
+```bash
+# Continuous-angle viability (5-ch input, 1-ch output per sampled angle)
+python scripts/train.py --config configs/config.yaml \
+    --oracle_type continuous_angle --epochs 30
+
+# Time-to-escape cost regression (3-ch input, 4-ch float output)
+python scripts/train.py --config configs/config.yaml \
+    --oracle_type cost_map --epochs 30
+
+# Velocity-aware viability (4-ch input, 4-ch output per speed)
+python scripts/train.py --config configs/config.yaml \
+    --oracle_type velocity --epochs 30
+```
+
+### Key training flags
+
+| Flag | Description | Default |
+|---|---|---|
+| `--config` | Path to config YAML | `configs/config.yaml` |
+| `--resume` | Path to checkpoint to resume from | None |
+| `--oracle_type` | `basic`, `continuous_angle`, `cost_map`, `velocity` | `basic` |
+| `--epochs` | Override number of epochs | from config |
+| `--batch_size` | Override batch size | from config |
+| `--lr` | Override learning rate | from config |
+| `--experiment_name` | Run name for logging | auto-generated |
+
+---
+
+## Evaluation
+
+### Full evaluation
+
+```bash
+python scripts/evaluate.py --config configs/config.yaml \
+    --checkpoint checkpoints/best_iou.pth
+```
+
+Reports per-direction IoU, Dice score, pixel accuracy, and inference speed
+compared to the Oracle.  Results are saved to
+`outputs/results/evaluation.json`.
+
+### Generalisation test
+
+The evaluation automatically tests on the held-out robot size
+(configured under `robot.test_only_sizes` in `config.yaml`) and compares
+metrics against the training sizes.
+
+### Speed benchmark
+
+Included in the evaluation script.  Compares Oracle wall-clock time
+(erosion + BFS, single-threaded) vs model inference time (GPU, mixed
+precision).  Typical result: **~400× speedup** on a single 512×512 map.
+
+---
+
+## PRM Benchmark — TrapAwarePRM vs StandardPRM
+
+The PRM planners are implemented entirely in **pure NumPy + SciPy**
+(`src/integration/prm.py`).  No external motion planning library is required.
+
+### How it works
+
+**StandardPRM** samples uniformly from free space, connects k-nearest
+neighbours with straight-line edges (collision checked via pixel
+rasterisation), and queries the shortest path with Dijkstra.
+
+**TrapAwarePRM** extends StandardPRM with viability-guided hybrid sampling:
+- 85% of nodes are *viability-filtered* — rejected if the NN viability score
+  is below a threshold in all 4 directions.
+- 15% of nodes are *unconditional uniform* — ensures connectivity even in
+  highly trap-dense regions.
+- Edges crossing low-viability pixels receive a penalty multiplier (default
+  5×) on their Euclidean length.
+
+The local planner is holonomic (straight-line).  Extending to Dubins curves
+is documented as future work.
+
+### Running the benchmark
+
 ```bash
 # On test maps from the dataset
-python scripts/benchmark_prm.py --num-maps 8 --num-samples 500
+python scripts/benchmark_prm.py \
+    --checkpoint checkpoints/best_iou.pth \
+    --num-maps 8 \
+    --num-samples 500
 
-# On a synthetic warehouse map
+# On a synthetic warehouse with shelves, aisles, and dead-end alcoves
 python scripts/benchmark_prm_hard.py \
-    --shelves 6 --aisles 10 --dead-ends 8 \
-    --num-samples 600 --runs 5
+    --checkpoint checkpoints/best_iou.pth
+
+# Quick sanity check (3 maps, 300 samples)
+python scripts/benchmark_prm.py --num-maps 3 --num-samples 300
 ```
 
-### 5 — Demo
+### Key benchmark flags
+
+| Flag | Description | Default |
+|---|---|---|
+| `--checkpoint` | Path to trained model | auto-detect latest |
+| `--num-maps` | Number of test maps | 8 |
+| `--num-samples` | PRM roadmap nodes per planner | 500 |
+| `--k-nn` | K nearest neighbours | 10 |
+| `--viability-threshold` | Min viability to accept a sample | 0.5 |
+| `--trap-penalty` | Edge weight penalty for trap regions | 5.0 |
+| `--uniform-ratio` | Fraction of unconditional uniform nodes | 0.15 |
+
+Results are saved to `outputs/results/prm_comparison.json`.  Comparison
+figures (roadmap overlays, trap rate bar charts) are saved to
+`outputs/figures/`.
+
+### Example results
+
+On a synthetic warehouse map (512×512, 67% trap density, 5 runs):
+
+| Planner | Trap rate | Build time | Path found |
+|---|---|---|---|
+| StandardPRM | 0.673 | 641 ms | 100% |
+| TrapAwarePRM (Oracle labels) | 0.123 | 1137 ms | 100% |
+| TrapAwarePRM (NN prediction) | 0.125 | 1132 ms | 100% |
+
+The NN-guided planner matches Oracle-guided quality (~81% trap reduction)
+while replacing the ~165 ms Oracle call with a ~12 ms neural network
+inference.
+
+---
+
+## Generating Report Figures
+
 ```bash
-python scripts/demo_angle_sweep.py \
-    --checkpoint outputs/viability_continuous_angle_<run>/checkpoints/best_iou.pth \
-    --n-angles 24 \
-    --out outputs/closed_loop_demo/demo_angle_sweep.gif
+python scripts/08_generate_figures.py --config configs/config.yaml \
+    --checkpoint checkpoints/best_iou.pth
+```
+
+Generates all figures used in the report:
+
+| Figure | Description |
+|---|---|
+| Eye-test grid | Sample (map, label) pairs |
+| Training curves | Loss + validation IoU over epochs |
+| Best predictions | Top-4 highest-IoU examples |
+| Failure cases | Bottom-4 with analysis |
+| Per-direction IoU | N / S / E / W bar chart |
+| Generalisation | IoU vs robot size (train vs test markers) |
+| Speed comparison | Oracle vs model (log scale) |
+| PRM comparison | Standard PRM vs TrapAwarePRM roadmaps |
+
+All figures are saved at 150 DPI as PNG in `outputs/figures/`.
+
+---
+
+## SLURM Quick Reference
+
+### Submitting jobs
+
+```bash
+sbatch scripts/slurm/preprocess.sh           # CPU — map preprocessing
+sbatch scripts/slurm/oracle.sh               # CPU — label generation
+sbatch scripts/slurm/train.sh                # GPU — training
+```
+
+All SLURM scripts source `scripts/slurm/_header.sh`, which activates the
+conda environment, prints job metadata, and logs GPU info.
+
+### Monitoring
+
+```bash
+squeue -u $USER                               # list your jobs
+watch -n 150 squeue -u $USER                  # auto-refresh (polite interval)
+tail -f logs/slurm/train/<job_id>_train.out   # live output
+scancel <job_id>                              # cancel a job
+sacct -j <job_id> --format=JobID,State,Elapsed,MaxRSS
+```
+
+### Preemption handling
+
+Jobs on the `studentkillable` partition can be killed at any time.  All
+training scripts save `last.pth` every epoch; to resume after preemption,
+simply resubmit:
+
+```bash
+sbatch scripts/slurm/train.sh
+```
+
+The script automatically resumes from the latest checkpoint if one exists.
+
+---
+
+## Troubleshooting
+
+**"Config file not found"** — Make sure you run all commands from the project
+root (`project2/`), or pass `--config` with an absolute path.
+
+**"CUDA out of memory"** — Reduce `batch_size` in `config.yaml`.  The default
+(8) fits on a 2080 (8 GB); use 16 on a Titan XP (12 GB).
+
+**"No processed maps found"** — Run the preprocessing step first:
+`python scripts/local/02_preprocess_maps.py --config configs/config.yaml`
+
+**SLURM job killed with no error** — This is a preemption.  Check
+`sacct -j <job_id>` for state `CANCELLED` or `PREEMPTED`.  Resubmit; the
+training script resumes from `last.pth`.
+
+**Stale conda environment** — If packages seem missing after a node change:
+```bash
+source configs/.env
+source "$CONDA_SH"
+conda activate traps
 ```
 
 ---
 
-## Checkpointing & Resuming
+## License
 
-Every training script saves two checkpoints:
-- `best_iou.pth` — best validation metric seen so far
-- `last.pth` — end of most recent epoch
-
-To resume training from where it left off:
-```bash
-python scripts/train.py --config configs/config.yaml \
-    --oracle_type basic \
-    --resume outputs/viability_<run>/checkpoints/last.pth
-```
-
----
-
-## Results
-
-Full metrics, training curves, and figures: [RESULTS.md](RESULTS.md)
+Course project — TAU Algorithmic Robotics 2025/2026.
