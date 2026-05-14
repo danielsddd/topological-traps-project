@@ -1,0 +1,76 @@
+# ============================================================
+# Directional Topological Traps — .gitignore
+# ============================================================
+
+# --- Large data (use git add -f to force-add small samples) ---
+data/raw_maps/
+data/processed/
+data/labels/
+
+# --- Model weights & checkpoints ---
+checkpoints/
+*.pth
+*.pt
+*.ckpt
+
+# --- Logs & outputs (commit figures selectively) ---
+logs/
+outputs/results/
+outputs/figures/
+outputs/visualizations/
+
+# --- Weights & Biases ---
+wandb/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+.pytest_cache/
+.mypy_cache/
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+*.ipynb
+
+# --- Env & secrets ---
+configs/.env
+.env
+*.env
+
+# --- IDE ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- Conda ---
+*.conda
+conda-lock.yml
+
+# --- Temp ---
+*.tmp
+*.bak
+scratch/
+tmp/
+
+# ============================================================
+# FORCE-ADD EXCEPTIONS (use: git add -f <path>)
+# These are small reference files committed intentionally:
+#   data/samples/          — a few example maps + labels for context
+#   outputs/figures/eye_test_grid.png
+#   data/processed/preprocessing_stats.json
+#   data/manifest.csv      — the split manifest IS committed
+# ============================================================

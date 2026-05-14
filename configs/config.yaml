@@ -1,0 +1,166 @@
+# ============================================================
+# configs/config.yaml — Master configuration
+# Contains aliases for both old (train.py) and new (src/config.py) field names
+# ============================================================
+
+paths:
+  project_root: "."
+  # New names (src/config.py)
+  raw_maps_dir: "data/raw_maps"
+  processed_dir: "data/processed"
+  labels_dir: "data/labels"
+  manifest_path: "data/manifest.csv"
+  checkpoint_dir: "checkpoints"
+  log_dir: "logs"
+  output_dir: "outputs"
+  figures_dir: "outputs/figures"
+  results_dir: "outputs/results"
+  # Old names (scripts/train.py)
+  raw_maps: "data/raw_maps"
+  processed_maps: "data/processed"
+  manifest: "data/manifest.csv"
+  checkpoints: "checkpoints"
+  logs: "logs"
+  figures: "outputs/figures"
+  reports: "outputs/results"
+
+data:
+  resolution: 512
+  num_maps: 1000
+  # New style (src/config.py)
+  split_ratios:
+    train: 0.70
+    val:   0.15
+    test:  0.15
+  # Old style (scripts/train.py)
+  train_split: 0.70
+  val_split:   0.15
+  test_split:  0.15
+  random_seed: 42
+  num_workers: 4
+
+# New style (src/config.py)
+robot:
+  train_sizes:
+    - [20, 15]
+    - [30, 20]
+    - [40, 25]
+  test_only_sizes:
+    - [25, 18]
+
+# Old style (scripts/train.py)
+robot_sizes:
+  all_sizes:
+    - [20, 15]
+    - [30, 20]
+    - [40, 25]
+    - [25, 18]
+  train:
+    - [20, 15]
+    - [30, 20]
+    - [40, 25]
+  train_sizes:
+    - [20, 15]
+    - [30, 20]
+    - [40, 25]
+  test_only:
+    - [25, 18]
+  test_only_sizes:
+    - [25, 18]
+
+oracle:
+  num_workers: 16
+  directions: ["N", "S", "E", "W"]
+  kernel_margin: 1.2
+  use_parallel: true
+  batch_size: 100
+
+model:
+  # New names (src/config.py)
+  encoder: "resnet34"
+  out_channels: 4
+  # Old names (scripts/train.py)
+  architecture: "unet"
+  encoder_name: "resnet34"
+  encoder_weights: "imagenet"
+  in_channels: 3
+  classes: 4
+  activation: null
+
+training:
+  batch_size: 16
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  # New name (src/config.py)
+  epochs: 50
+  # Old name (scripts/train.py)
+  num_epochs: 50
+  early_stopping_patience: 5
+  # New name (src/config.py)
+  mixed_precision: true
+  # Old name (scripts/train.py)
+  use_amp: true
+  gradient_clip: 1.0
+  gradient_clip_val: 1.0
+  optimizer: "adamw"
+  num_workers: 4
+  pin_memory: true
+  prefetch_factor: 2
+  warmup_epochs: 3
+  scheduler:
+    type: "cosine"
+    T_max: 50
+    eta_min: 0.000001
+    min_lr: 0.000001
+    patience: 5
+    factor: 0.5
+    step_size: 30
+  loss:
+    type: "dice_bce"
+    dice_weight: 0.5
+    bce_weight: 0.5
+
+evaluation:
+  threshold: 0.5
+  speed_benchmark_maps: 50
+  speed_benchmark_repeats: 5
+  metrics:
+    - "iou"
+    - "dice"
+    - "accuracy"
+    - "precision"
+    - "recall"
+  compute_per_direction: true
+  compute_per_robot_size: true
+
+logging:
+  use_wandb: false
+  wandb_project: "topological-traps"
+  wandb_entity: null
+  log_interval: 10
+
+visualization:
+  dpi: 150
+  figure_format: "png"
+  colormap:
+    viable: [50, 200, 50]
+    trap: [200, 50, 50]
+    obstacle: [50, 50, 50]
+
+discopygal:
+  default_robot_length: 30
+  default_robot_width: 20
+  num_landmarks: 1000
+  k_nn: 15
+  viability_threshold: 0.5
+  trap_penalty: 10.0
+
+slurm:
+  partition: "studentkillable"
+  gpu_partition: "studentkillable"
+  account: null
+  default_time: "08:00:00"
+  gpu_memory: "12G"
+  cpu_memory: "32G"
+  num_cpus: 4
+  num_gpus: 1

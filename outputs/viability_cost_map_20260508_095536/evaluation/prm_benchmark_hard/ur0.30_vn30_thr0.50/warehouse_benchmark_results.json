@@ -1,0 +1,59 @@
+{
+  "map_config": {
+    "size": 512,
+    "shelves": 6,
+    "aisles": 10,
+    "aisle_w": 18,
+    "shelf_d": 28,
+    "dead_ends": 8,
+    "runs": 10,
+    "num_samples": 600,
+    "k_nn": 12,
+    "threshold": 0.5,
+    "uniform_ratio": 0.3,
+    "vicinity_nodes": 30,
+    "checkpoint": null,
+    "config": "configs/config.yaml",
+    "seed": 0,
+    "output_dir": null
+  },
+  "free_pct": 76.361083984375,
+  "trap_pct": 67.01502677643674,
+  "oracle_prediction_ms": 125.70601515471935,
+  "nn_prediction_ms": 11.260459665209055,
+  "results": [
+    {
+      "name": "Standard PRM",
+      "prediction_ms": 0.0,
+      "avg_trap_rate": 0.6714285714285715,
+      "std_trap_rate": 0.02081124221045294,
+      "avg_build_ms": 507.43433642201126,
+      "avg_query_ms": 2.193904761224985,
+      "avg_path_len": 505.83691708818816,
+      "avg_total_ms": 507.43433642201126,
+      "path_found_pct": 100.0
+    },
+    {
+      "name": "TrapAwarePRM (Oracle)",
+      "prediction_ms": 125.71,
+      "avg_trap_rate": 0.2257911392405063,
+      "std_trap_rate": 0.012579860259684153,
+      "avg_build_ms": 972.2813100088388,
+      "avg_query_ms": 2.4785902816802263,
+      "avg_path_len": 646.300404409155,
+      "avg_total_ms": 1097.9873251635581,
+      "path_found_pct": 100.0
+    },
+    {
+      "name": "TrapAwarePRM (NN)",
+      "prediction_ms": 11.26,
+      "avg_trap_rate": 0.7748417721518989,
+      "std_trap_rate": 0.013903357753932718,
+      "avg_build_ms": 903.3456705976278,
+      "avg_query_ms": 2.318690624088049,
+      "avg_path_len": 491.9082256452901,
+      "avg_total_ms": 914.6061302628368,
+      "path_found_pct": 100.0
+    }
+  ]
+}

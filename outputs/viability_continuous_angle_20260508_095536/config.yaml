@@ -1,0 +1,167 @@
+data:
+  num_maps: 1000
+  num_workers: 4
+  random_seed: 42
+  resolution: 512
+  split_ratios:
+    test: 0.15
+    train: 0.7
+    val: 0.15
+  test_split: 0.15
+  train_split: 0.7
+  val_split: 0.15
+discopygal:
+  default_robot_length: 30
+  default_robot_width: 20
+  k_nn: 15
+  num_landmarks: 1000
+  trap_penalty: 10.0
+  viability_threshold: 0.5
+evaluation:
+  compute_per_direction: true
+  compute_per_robot_size: true
+  metrics:
+  - iou
+  - dice
+  - accuracy
+  - precision
+  - recall
+  speed_benchmark_maps: 50
+  speed_benchmark_repeats: 5
+  threshold: 0.5
+logging:
+  log_interval: 10
+  use_wandb: false
+  wandb_entity: null
+  wandb_project: topological-traps
+model:
+  activation: null
+  architecture: unet
+  classes: 4
+  encoder: resnet34
+  encoder_name: resnet34
+  encoder_weights: imagenet
+  in_channels: 3
+  out_channels: 4
+oracle:
+  batch_size: 100
+  directions:
+  - N
+  - S
+  - E
+  - W
+  kernel_margin: 1.2
+  num_workers: 16
+  use_parallel: true
+paths:
+  checkpoint_dir: checkpoints
+  checkpoints: checkpoints
+  figures: outputs/figures
+  figures_dir: outputs/figures
+  labels_dir: data/labels
+  log_dir: logs
+  logs: logs
+  manifest: data/manifest.csv
+  manifest_path: data/manifest.csv
+  output_dir: outputs
+  processed_dir: data/processed
+  processed_maps: data/processed
+  project_root: .
+  raw_maps: data/raw_maps
+  raw_maps_dir: data/raw_maps
+  reports: outputs/results
+  results_dir: outputs/results
+robot:
+  test_only_sizes:
+  - - 25
+    - 18
+  train_sizes:
+  - - 20
+    - 15
+  - - 30
+    - 20
+  - - 40
+    - 25
+robot_sizes:
+  all_sizes:
+  - - 20
+    - 15
+  - - 30
+    - 20
+  - - 40
+    - 25
+  - - 25
+    - 18
+  test_only:
+  - - 25
+    - 18
+  test_only_sizes:
+  - - 25
+    - 18
+  train:
+  - - 20
+    - 15
+  - - 30
+    - 20
+  - - 40
+    - 25
+  train_sizes:
+  - - 20
+    - 15
+  - - 30
+    - 20
+  - - 40
+    - 25
+slurm:
+  account: null
+  cpu_memory: 32G
+  default_time: 08:00:00
+  gpu_memory: 12G
+  gpu_partition: studentkillable
+  num_cpus: 4
+  num_gpus: 1
+  partition: studentkillable
+training:
+  batch_size: 16
+  early_stopping_patience: 5
+  epochs: 50
+  gradient_clip: 1.0
+  gradient_clip_val: 1.0
+  learning_rate: 0.0001
+  loss:
+    bce_weight: 0.5
+    dice_weight: 0.5
+    type: dice_bce
+  mixed_precision: true
+  num_epochs: 30
+  num_workers: 4
+  optimizer: adamw
+  pin_memory: true
+  prefetch_factor: 2
+  scheduler:
+    T_max: 50
+    eta_min: 1.0e-06
+    factor: 0.5
+    min_lr: 1.0e-06
+    patience: 5
+    step_size: 30
+    type: cosine
+  use_amp: true
+  warmup_epochs: 3
+  weight_decay: 0.0001
+visualization:
+  colormap:
+    obstacle:
+    - 50
+    - 50
+    - 50
+    trap:
+    - 200
+    - 50
+    - 50
+    viable:
+    - 50
+    - 200
+    - 50
+  dpi: 150
+  figure_format: png

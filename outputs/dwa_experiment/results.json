@@ -1,0 +1,1302 @@
+{
+  "args": {
+    "checkpoint": "outputs/viability_continuous_angle_20260508_095536/checkpoints/best_iou.pth",
+    "oracle_type": "continuous_angle",
+    "n_maps": 150,
+    "sizes": [
+      [
+        20,
+        15
+      ],
+      [
+        30,
+        20
+      ],
+      [
+        40,
+        25
+      ]
+    ],
+    "max_steps": 2000,
+    "w_viability": 8.0,
+    "device": "cuda",
+    "resolution": 512
+  },
+  "timing": {},
+  "summary": [
+    {
+      "robot_size": "20x15",
+      "planner": "vanilla",
+      "n": 20,
+      "success_rate": 60.0,
+      "deadlock_rate": 0.0,
+      "timeout_rate": 40.0,
+      "mean_via_precompute_ms": 0.0
+    },
+    {
+      "robot_size": "20x15",
+      "planner": "viability",
+      "n": 20,
+      "success_rate": 65.0,
+      "deadlock_rate": 5.0,
+      "timeout_rate": 30.0,
+      "mean_via_precompute_ms": 213.7
+    },
+    {
+      "robot_size": "30x20",
+      "planner": "vanilla",
+      "n": 20,
+      "success_rate": 75.0,
+      "deadlock_rate": 0.0,
+      "timeout_rate": 25.0,
+      "mean_via_precompute_ms": 0.0
+    },
+    {
+      "robot_size": "30x20",
+      "planner": "viability",
+      "n": 20,
+      "success_rate": 70.0,
+      "deadlock_rate": 0.0,
+      "timeout_rate": 30.0,
+      "mean_via_precompute_ms": 190.79
+    },
+    {
+      "robot_size": "40x25",
+      "planner": "vanilla",
+      "n": 20,
+      "success_rate": 70.0,
+      "deadlock_rate": 0.0,
+      "timeout_rate": 30.0,
+      "mean_via_precompute_ms": 0.0
+    },
+    {
+      "robot_size": "40x25",
+      "planner": "viability",
+      "n": 20,
+      "success_rate": 85.0,
+      "deadlock_rate": 0.0,
+      "timeout_rate": 15.0,
+      "mean_via_precompute_ms": 192.74
+    }
+  ],
+  "per_episode": {
+    "20x15": {
+      "vanilla": [
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15962.5,
+          "straight_line_dist": 108.70602559196064,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 106.56283322351884,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15957.5,
+          "straight_line_dist": 86.02325267042627,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 128.98753486768308,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 36,
+          "path_length_px": 279.25,
+          "straight_line_dist": 119.10499569707393,
+          "path_efficiency": 0.42651744206651365,
+          "final_dist_to_goal": 27.652590260720313,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 11,
+          "path_length_px": 87.99999999999997,
+          "straight_line_dist": 107.37783756436893,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 28.393272708896195,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 334,
+          "path_length_px": 2658.25,
+          "straight_line_dist": 76.4198926981712,
+          "path_efficiency": 0.02874819625624798,
+          "final_dist_to_goal": 30.319683027263636,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15973.75,
+          "straight_line_dist": 119.64113005150027,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 267.51655026289416,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 9,
+          "path_length_px": 71.99999999999994,
+          "straight_line_dist": 99.02019995940222,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 34.4953552312335,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 10,
+          "path_length_px": 70.00000000000001,
+          "straight_line_dist": 89.31965069345043,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 29.472605511239905,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15987.5,
+          "straight_line_dist": 67.89698078707183,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 60.09370959890183,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15990.0,
+          "straight_line_dist": 104.4030650891055,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 139.7592212796515,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 17,
+          "path_length_px": 132.25000000000009,
+          "straight_line_dist": 112.25417586887359,
+          "path_efficiency": 0.8488028421086844,
+          "final_dist_to_goal": 34.674236386485184,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 5,
+          "path_length_px": 33.75000000000001,
+          "straight_line_dist": 62.20128616033595,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 34.73621121495336,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 298,
+          "path_length_px": 2356.5000000000005,
+          "straight_line_dist": 106.25441167311595,
+          "path_efficiency": 0.045089926447322695,
+          "final_dist_to_goal": 29.50802642683444,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15836.25,
+          "straight_line_dist": 80.05623023850174,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 68.68010153034028,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 140,
+          "path_length_px": 1111.2499999999998,
+          "straight_line_dist": 111.30588483993108,
+          "path_efficiency": 0.10016277600893687,
+          "final_dist_to_goal": 28.73704895261284,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 200,
+          "path_length_px": 1563.75,
+          "straight_line_dist": 117.04699910719626,
+          "path_efficiency": 0.07485019926919025,
+          "final_dist_to_goal": 30.337603635988543,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 216,
+          "path_length_px": 1696.75,
+          "straight_line_dist": 114.96521212958292,
+          "path_efficiency": 0.06775612914665267,
+          "final_dist_to_goal": 31.56113295714229,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15992.5,
+          "straight_line_dist": 61.61980201201558,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 51.83957548336665,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15988.75,
+          "straight_line_dist": 94.02127418834527,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 197.619092697143,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 31,
+          "path_length_px": 238.0,
+          "straight_line_dist": 106.45186705737011,
+          "path_efficiency": 0.44727675234189124,
+          "final_dist_to_goal": 28.123359691890848,
+          "viability_precompute_ms": 0.0
+        }
+      ],
+      "viability": [
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15826.25,
+          "straight_line_dist": 108.70602559196064,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 115.10631033527287,
+          "viability_precompute_ms": 534.1832740232348
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15906.25,
+          "straight_line_dist": 86.02325267042627,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 98.3372648912845,
+          "viability_precompute_ms": 197.6891909725964
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 31,
+          "path_length_px": 238.00000000000003,
+          "straight_line_dist": 119.10499569707393,
+          "path_efficiency": 0.5004411583910668,
+          "final_dist_to_goal": 31.362179315885136,
+          "viability_precompute_ms": 323.8619980402291
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 11,
+          "path_length_px": 84.25000000000004,
+          "straight_line_dist": 107.37783756436893,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 32.06819079052374,
+          "viability_precompute_ms": 187.546169385314
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 206,
+          "path_length_px": 1630.5,
+          "straight_line_dist": 76.4198926981712,
+          "path_efficiency": 0.046868992761834524,
+          "final_dist_to_goal": 31.342015793940188,
+          "viability_precompute_ms": 183.46245028078556
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15963.75,
+          "straight_line_dist": 119.64113005150027,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 235.61836514778142,
+          "viability_precompute_ms": 182.13590700179338
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 10,
+          "path_length_px": 76.25000000000003,
+          "straight_line_dist": 99.02019995940222,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 31.74416021125294,
+          "viability_precompute_ms": 184.22702373936772
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 9,
+          "path_length_px": 68.24999999999999,
+          "straight_line_dist": 89.31965069345043,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 31.515893960570484,
+          "viability_precompute_ms": 192.4248319119215
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": true,
+          "n_steps": 1018,
+          "path_length_px": 8022.75,
+          "straight_line_dist": 67.89698078707183,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 52.775250992041386,
+          "viability_precompute_ms": 191.74424512311816
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15973.75,
+          "straight_line_dist": 104.4030650891055,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 152.92772979323541,
+          "viability_precompute_ms": 182.99990519881248
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 17,
+          "path_length_px": 132.25,
+          "straight_line_dist": 112.25417586887359,
+          "path_efficiency": 0.848802842108685,
+          "final_dist_to_goal": 32.33553072139659,
+          "viability_precompute_ms": 196.30064070224762
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 11,
+          "path_length_px": 80.49999999999997,
+          "straight_line_dist": 62.20128616033595,
+          "path_efficiency": 0.7726867846004468,
+          "final_dist_to_goal": 34.670743602774834,
+          "viability_precompute_ms": 200.7433702237904
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 241,
+          "path_length_px": 1905.5000000000002,
+          "straight_line_dist": 106.25441167311595,
+          "path_efficiency": 0.05576195836951768,
+          "final_dist_to_goal": 34.15186457669451,
+          "viability_precompute_ms": 192.21352878957987
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 804,
+          "path_length_px": 6209.5,
+          "straight_line_dist": 80.05623023850174,
+          "path_efficiency": 0.012892540500604194,
+          "final_dist_to_goal": 29.19955218563704,
+          "viability_precompute_ms": 189.41521225497127
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 187,
+          "path_length_px": 1477.2499999999998,
+          "straight_line_dist": 111.30588483993108,
+          "path_efficiency": 0.07534668122520298,
+          "final_dist_to_goal": 34.39367158128913,
+          "viability_precompute_ms": 187.42265133187175
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 1779,
+          "path_length_px": 14193.25,
+          "straight_line_dist": 117.04699910719626,
+          "path_efficiency": 0.00824666648633655,
+          "final_dist_to_goal": 34.21606192672552,
+          "viability_precompute_ms": 189.16520616039634
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 108,
+          "path_length_px": 817.7500000000002,
+          "straight_line_dist": 114.96521212958292,
+          "path_efficiency": 0.14058723586619737,
+          "final_dist_to_goal": 31.800570670529165,
+          "viability_precompute_ms": 191.8188869021833
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15920.0,
+          "straight_line_dist": 61.61980201201558,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 57.69482585932158,
+          "viability_precompute_ms": 197.82780203968287
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15741.25,
+          "straight_line_dist": 94.02127418834527,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 144.19338342100332,
+          "viability_precompute_ms": 182.31521314010024
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 28,
+          "path_length_px": 212.75,
+          "straight_line_dist": 106.45186705737011,
+          "path_efficiency": 0.5003613022673096,
+          "final_dist_to_goal": 28.088711668418007,
+          "viability_precompute_ms": 186.49404775351286
+        }
+      ]
+    },
+    "30x20": {
+      "vanilla": [
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 51,
+          "path_length_px": 408.00000000000017,
+          "straight_line_dist": 119.28118040998756,
+          "path_efficiency": 0.29235583433820467,
+          "final_dist_to_goal": 30.113261363356184,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 32,
+          "path_length_px": 256.00000000000006,
+          "straight_line_dist": 83.64807230295268,
+          "path_efficiency": 0.32675028243340887,
+          "final_dist_to_goal": 27.11905747840098,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 376,
+          "path_length_px": 3002.9999999999995,
+          "straight_line_dist": 110.65260954898443,
+          "path_efficiency": 0.036847355827167645,
+          "final_dist_to_goal": 31.279487164751206,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 16000.0,
+          "straight_line_dist": 72.069410986909,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 166.5606552073432,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 6,
+          "path_length_px": 48.00000000000001,
+          "straight_line_dist": 70.83784299369935,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 27.81461853490471,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15998.75,
+          "straight_line_dist": 109.14210919713803,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 190.19395530059083,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 39,
+          "path_length_px": 311.99999999999994,
+          "straight_line_dist": 82.80096617793781,
+          "path_efficiency": 0.2653877121087751,
+          "final_dist_to_goal": 30.828602123875353,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 146,
+          "path_length_px": 1155.5000000000002,
+          "straight_line_dist": 75.66372975210778,
+          "path_efficiency": 0.0654813758131612,
+          "final_dist_to_goal": 31.004730112743523,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 12,
+          "path_length_px": 89.74999999999999,
+          "straight_line_dist": 107.35455276791944,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 32.98462239112658,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 138,
+          "path_length_px": 1096.5,
+          "straight_line_dist": 94.37160589923221,
+          "path_efficiency": 0.08606621605037137,
+          "final_dist_to_goal": 29.317492576829146,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 320,
+          "path_length_px": 2560.0,
+          "straight_line_dist": 93.39164844888434,
+          "path_efficiency": 0.03648111267534544,
+          "final_dist_to_goal": 33.10289538285095,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15997.5,
+          "straight_line_dist": 113.21660655575224,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 125.24021007246846,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 4,
+          "path_length_px": 32.000000000000014,
+          "straight_line_dist": 60.67124524847005,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 33.36208461111757,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 67,
+          "path_length_px": 536.0000000000001,
+          "straight_line_dist": 69.12307863514182,
+          "path_efficiency": 0.1289609676028765,
+          "final_dist_to_goal": 34.74317986971259,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15995.0,
+          "straight_line_dist": 117.39250401963491,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 140.45334690987542,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 66,
+          "path_length_px": 494.25000000000006,
+          "straight_line_dist": 83.73768566183328,
+          "path_efficiency": 0.1694237443840835,
+          "final_dist_to_goal": 32.81465731390793,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15913.75,
+          "straight_line_dist": 67.80117993073571,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 58.79119708078664,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 47,
+          "path_length_px": 376.0000000000003,
+          "straight_line_dist": 115.20850663036997,
+          "path_efficiency": 0.30640560274034545,
+          "final_dist_to_goal": 29.27584667977155,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 18,
+          "path_length_px": 139.0,
+          "straight_line_dist": 96.87620966986684,
+          "path_efficiency": 0.6969511487040779,
+          "final_dist_to_goal": 33.49914703043982,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 22,
+          "path_length_px": 176.00000000000009,
+          "straight_line_dist": 65.79513659838392,
+          "path_efficiency": 0.37383600339990847,
+          "final_dist_to_goal": 29.701678497595918,
+          "viability_precompute_ms": 0.0
+        }
+      ],
+      "viability": [
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 12,
+          "path_length_px": 96.00000000000006,
+          "straight_line_dist": 119.28118040998756,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 31.18266513041119,
+          "viability_precompute_ms": 197.62423913925886
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 8,
+          "path_length_px": 64.00000000000004,
+          "straight_line_dist": 83.64807230295268,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 27.370835054413117,
+          "viability_precompute_ms": 196.16437470540404
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 123,
+          "path_length_px": 972.75,
+          "straight_line_dist": 110.65260954898443,
+          "path_efficiency": 0.11375236139705415,
+          "final_dist_to_goal": 31.121090686455773,
+          "viability_precompute_ms": 187.53687385469675
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15976.25,
+          "straight_line_dist": 72.069410986909,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 135.70013757163062,
+          "viability_precompute_ms": 183.75916592776775
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 6,
+          "path_length_px": 48.00000000000001,
+          "straight_line_dist": 70.83784299369935,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 27.81461853490471,
+          "viability_precompute_ms": 183.46101697534323
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15986.25,
+          "straight_line_dist": 109.14210919713803,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 137.48767128717134,
+          "viability_precompute_ms": 187.45517265051603
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15987.5,
+          "straight_line_dist": 82.80096617793781,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 119.38935223205377,
+          "viability_precompute_ms": 191.8508568778634
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 12,
+          "path_length_px": 89.75000000000001,
+          "straight_line_dist": 75.66372975210778,
+          "path_efficiency": 0.84304991367251,
+          "final_dist_to_goal": 32.90933256469872,
+          "viability_precompute_ms": 191.7445808649063
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 12,
+          "path_length_px": 87.25000000000007,
+          "straight_line_dist": 107.35455276791944,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 32.68734372045773,
+          "viability_precompute_ms": 194.98018501326442
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 667,
+          "path_length_px": 5308.5,
+          "straight_line_dist": 94.37160589923221,
+          "path_efficiency": 0.017777452368697787,
+          "final_dist_to_goal": 27.629227486969526,
+          "viability_precompute_ms": 198.2999532483518
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15838.75,
+          "straight_line_dist": 93.39164844888434,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 37.845427416826496,
+          "viability_precompute_ms": 189.43908996880054
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15902.5,
+          "straight_line_dist": 113.21660655575224,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 199.75079324403612,
+          "viability_precompute_ms": 200.64606005325913
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 4,
+          "path_length_px": 32.000000000000014,
+          "straight_line_dist": 60.67124524847005,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 33.36208461111757,
+          "viability_precompute_ms": 182.35998367890716
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 34,
+          "path_length_px": 272.00000000000006,
+          "straight_line_dist": 69.12307863514182,
+          "path_efficiency": 0.2541289655703743,
+          "final_dist_to_goal": 34.459251309480855,
+          "viability_precompute_ms": 196.17905095219612
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 342,
+          "path_length_px": 2726.0,
+          "straight_line_dist": 117.39250401963491,
+          "path_efficiency": 0.04306401468071713,
+          "final_dist_to_goal": 33.24104506132874,
+          "viability_precompute_ms": 183.428050018847
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 54,
+          "path_length_px": 412.0,
+          "straight_line_dist": 83.73768566183328,
+          "path_efficiency": 0.20324680985881866,
+          "final_dist_to_goal": 27.93911326252863,
+          "viability_precompute_ms": 188.99188609793782
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15742.5,
+          "straight_line_dist": 67.80117993073571,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 116.16191638625759,
+          "viability_precompute_ms": 189.06642170622945
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 48,
+          "path_length_px": 384.00000000000017,
+          "straight_line_dist": 115.20850663036997,
+          "path_efficiency": 0.300022152683255,
+          "final_dist_to_goal": 30.270992076711558,
+          "viability_precompute_ms": 197.3578161559999
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 1068,
+          "path_length_px": 8254.0,
+          "straight_line_dist": 96.87620966986684,
+          "path_efficiency": 0.011736880260463635,
+          "final_dist_to_goal": 33.04042608305673,
+          "viability_precompute_ms": 182.61423520743847
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 6,
+          "path_length_px": 46.75,
+          "straight_line_dist": 65.79513659838392,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 34.13241110022751,
+          "viability_precompute_ms": 192.75261415168643
+        }
+      ]
+    },
+    "40x25": {
+      "vanilla": [
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 50,
+          "path_length_px": 400.0,
+          "straight_line_dist": 109.41663493271943,
+          "path_efficiency": 0.27354158733179856,
+          "final_dist_to_goal": 34.272484620896144,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 47,
+          "path_length_px": 376.0000000000001,
+          "straight_line_dist": 108.46197490364999,
+          "path_efficiency": 0.288462699211835,
+          "final_dist_to_goal": 33.634602142604265,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15995.0,
+          "straight_line_dist": 110.57124400132251,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 132.3419913205821,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15960.0,
+          "straight_line_dist": 113.44161493913951,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 115.70731432676484,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 7,
+          "path_length_px": 56.00000000000001,
+          "straight_line_dist": 83.24061508662703,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 31.827855425859013,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 7,
+          "path_length_px": 56.00000000000004,
+          "straight_line_dist": 84.95881355103778,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 32.552199995718304,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 5,
+          "path_length_px": 37.50000000000006,
+          "straight_line_dist": 60.41522986797286,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 32.78578277431766,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 127,
+          "path_length_px": 1016.0,
+          "straight_line_dist": 90.13878188659973,
+          "path_efficiency": 0.08871927351043281,
+          "final_dist_to_goal": 34.532152332484834,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15991.25,
+          "straight_line_dist": 113.35784048754634,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 153.32860646761276,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 16000.0,
+          "straight_line_dist": 83.18653737234169,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 108.91184656597065,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 13,
+          "path_length_px": 97.75000000000006,
+          "straight_line_dist": 115.3819743287486,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 33.664109900763805,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 7,
+          "path_length_px": 56.00000000000003,
+          "straight_line_dist": 84.17244204607586,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 32.176011440305004,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 18,
+          "path_length_px": 144.00000000000009,
+          "straight_line_dist": 101.19288512538814,
+          "path_efficiency": 0.7027283689263062,
+          "final_dist_to_goal": 31.683079640504562,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 5,
+          "path_length_px": 40.000000000000014,
+          "straight_line_dist": 69.65629906907199,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 32.21292405722756,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 30,
+          "path_length_px": 216.24999999999991,
+          "straight_line_dist": 102.9417310909429,
+          "path_efficiency": 0.47603112643210604,
+          "final_dist_to_goal": 33.71265682964248,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 31,
+          "path_length_px": 248.0,
+          "straight_line_dist": 70.8590149522275,
+          "path_efficiency": 0.2857218344847883,
+          "final_dist_to_goal": 27.553881169958533,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15978.75,
+          "straight_line_dist": 99.03534722511958,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 108.67389435119584,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 34,
+          "path_length_px": 272.00000000000006,
+          "straight_line_dist": 78.40918313565064,
+          "path_efficiency": 0.2882690556457743,
+          "final_dist_to_goal": 32.65719164727764,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15998.75,
+          "straight_line_dist": 65.55150646628954,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 48.74018483775975,
+          "viability_precompute_ms": 0.0
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 10,
+          "path_length_px": 80.00000000000004,
+          "straight_line_dist": 72.44308110509934,
+          "path_efficiency": 0.9055385138137413,
+          "final_dist_to_goal": 30.07813604358585,
+          "viability_precompute_ms": 0.0
+        }
+      ],
+      "viability": [
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 11,
+          "path_length_px": 86.75000000000006,
+          "straight_line_dist": 109.41663493271943,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 33.15384261726107,
+          "viability_precompute_ms": 190.27074240148067
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 11,
+          "path_length_px": 88.00000000000001,
+          "straight_line_dist": 108.46197490364999,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 30.402639991006822,
+          "viability_precompute_ms": 194.50044771656394
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15960.0,
+          "straight_line_dist": 110.57124400132251,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 145.85910948117728,
+          "viability_precompute_ms": 187.94598523527384
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15841.25,
+          "straight_line_dist": 113.44161493913951,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 179.3938069694008,
+          "viability_precompute_ms": 182.85369919613004
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 7,
+          "path_length_px": 56.00000000000001,
+          "straight_line_dist": 83.24061508662703,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 31.827855425859013,
+          "viability_precompute_ms": 189.15932765230536
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 7,
+          "path_length_px": 56.00000000000004,
+          "straight_line_dist": 84.95881355103778,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 32.552199995718304,
+          "viability_precompute_ms": 194.11762617528439
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 5,
+          "path_length_px": 37.50000000000006,
+          "straight_line_dist": 60.41522986797286,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 32.78578277431766,
+          "viability_precompute_ms": 197.6972632110119
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 44,
+          "path_length_px": 329.5,
+          "straight_line_dist": 90.13878188659973,
+          "path_efficiency": 0.27356231225068206,
+          "final_dist_to_goal": 31.645955975295102,
+          "viability_precompute_ms": 194.350466132164
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 11,
+          "path_length_px": 84.25000000000006,
+          "straight_line_dist": 113.35784048754634,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 31.1217241264837,
+          "viability_precompute_ms": 187.39042291417718
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 1985,
+          "path_length_px": 15820.0,
+          "straight_line_dist": 83.18653737234169,
+          "path_efficiency": 0.005258314625306048,
+          "final_dist_to_goal": 30.857501233984785,
+          "viability_precompute_ms": 186.73742236569524
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 15,
+          "path_length_px": 102.50000000000007,
+          "straight_line_dist": 115.3819743287486,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 31.115457080967705,
+          "viability_precompute_ms": 201.6301527619362
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 7,
+          "path_length_px": 56.00000000000003,
+          "straight_line_dist": 84.17244204607586,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 32.176011440305004,
+          "viability_precompute_ms": 183.52628918364644
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 10,
+          "path_length_px": 80.0000000000001,
+          "straight_line_dist": 101.19288512538814,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 31.72602928162015,
+          "viability_precompute_ms": 192.22727417945862
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 5,
+          "path_length_px": 40.000000000000014,
+          "straight_line_dist": 69.65629906907199,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 32.21292405722756,
+          "viability_precompute_ms": 199.24953812733293
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 601,
+          "path_length_px": 4591.75,
+          "straight_line_dist": 102.9417310909429,
+          "path_efficiency": 0.02241884490465354,
+          "final_dist_to_goal": 30.185486809415842,
+          "viability_precompute_ms": 201.76776498556137
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 37,
+          "path_length_px": 295.9999999999999,
+          "straight_line_dist": 70.8590149522275,
+          "path_efficiency": 0.23938856402779568,
+          "final_dist_to_goal": 29.087110959688406,
+          "viability_precompute_ms": 187.3034150339663
+        },
+        {
+          "reached_goal": false,
+          "deadlocked": false,
+          "n_steps": 2000,
+          "path_length_px": 15615.0,
+          "straight_line_dist": 99.03534722511958,
+          "path_efficiency": 0.0,
+          "final_dist_to_goal": 107.49542360952121,
+          "viability_precompute_ms": 191.85675587505102
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 110,
+          "path_length_px": 880.0000000000001,
+          "straight_line_dist": 78.40918313565064,
+          "path_efficiency": 0.08910134447233026,
+          "final_dist_to_goal": 34.340937445932866,
+          "viability_precompute_ms": 200.41221100836992
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 423,
+          "path_length_px": 3337.75,
+          "straight_line_dist": 65.55150646628954,
+          "path_efficiency": 0.01963942969554027,
+          "final_dist_to_goal": 34.329908915696635,
+          "viability_precompute_ms": 188.12992284074426
+        },
+        {
+          "reached_goal": true,
+          "deadlocked": false,
+          "n_steps": 7,
+          "path_length_px": 55.99999999999999,
+          "straight_line_dist": 72.44308110509934,
+          "path_efficiency": 1.0,
+          "final_dist_to_goal": 34.63160352743856,
+          "viability_precompute_ms": 203.7680149078369
+        }
+      ]
+    }
+  }
+}

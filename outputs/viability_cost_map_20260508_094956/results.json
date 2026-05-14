@@ -1,0 +1,23 @@
+{
+  "oracle_type": "cost_map",
+  "best_val_iou": 0.5,
+  "best_val_loss": 0.19699096977710723,
+  "final_epoch": 0,
+  "history": {
+    "train_loss": [
+      0.3382185683693997
+    ],
+    "val_loss": [
+      0.19699096977710723
+    ],
+    "val_iou": [
+      0.5
+    ],
+    "val_dice": [
+      0.7650419932603836
+    ],
+    "learning_rate": [
+      0.0001
+    ]
+  }
+}

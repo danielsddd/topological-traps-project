@@ -1,0 +1,42 @@
+[
+  {
+    "summary": {
+      "velocity": 0.0,
+      "d_brake_px": 0,
+      "n_maps": 20,
+      "iou_mean": 0.9874200243992369,
+      "iou_std": 0.010085852901689923,
+      "dice_mean": 0.9936441038468764,
+      "acc_mean": 0.9970364570617676,
+      "viable_frac_gt_mean": 0.37689571380615233,
+      "viable_frac_pred_mean": 0.37574119567871095,
+      "oracle_ms_mean": 176.18618542328477,
+      "nn_ms_mean": 24.208779935725033,
+      "iou_N_mean": 0.9881272151273437,
+      "iou_S_mean": 0.9889841306620857,
+      "iou_E_mean": 0.9860303565632398,
+      "iou_W_mean": 0.9866581308470007
+    },
+    "per_map_count": 20
+  },
+  {
+    "summary": {
+      "velocity": 6.0,
+      "d_brake_px": 90,
+      "n_maps": 20,
+      "iou_mean": 0.9613835689073481,
+      "iou_std": 0.0368047357444858,
+      "dice_mean": 0.9799413020732676,
+      "acc_mean": 0.9971761703491211,
+      "viable_frac_gt_mean": 0.24335079193115233,
+      "viable_frac_pred_mean": 0.24445953369140624,
+      "oracle_ms_mean": 88.96966073662043,
+      "nn_ms_mean": 18.916028435342014,
+      "iou_N_mean": 0.9640873975832734,
+      "iou_S_mean": 0.9638345673218007,
+      "iou_E_mean": 0.9239953919817376,
+      "iou_W_mean": 0.9372800712314298
+    },
+    "per_map_count": 20
+  }
+]

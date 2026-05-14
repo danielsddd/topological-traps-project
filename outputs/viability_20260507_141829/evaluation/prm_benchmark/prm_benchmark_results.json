@@ -1,0 +1,208 @@
+{
+  "num_maps": 8,
+  "robot_size": [
+    30,
+    20
+  ],
+  "num_samples": 500,
+  "k_nn": 10,
+  "viability_threshold": 0.5,
+  "trap_penalty": 5.0,
+  "standard_prm": {
+    "mean_trap_rate": 0.2684262948207171,
+    "std_trap_rate": 0.119367222274092,
+    "path_found_rate": 0.875
+  },
+  "trap_aware_prm_nn": {
+    "mean_trap_rate": 0.04980842911877394,
+    "std_trap_rate": 0.021610180407430034,
+    "path_found_rate": 0.875,
+    "trap_reduction_pct": 81.44428095167011
+  },
+  "per_map": [
+    {
+      "map": "2833c6a6d2cab9800a784d38a89cc292.npy",
+      "start": [
+        223,
+        158
+      ],
+      "goal": [
+        345,
+        333
+      ],
+      "standardprm_trap_rate": 0.1454183266932271,
+      "standardprm_path_found": true,
+      "standardprm_path_length": 256.13509315107405,
+      "standardprm_build_ms": 371.37256702408195,
+      "trapawareprm_model_trap_rate": 0.02681992337164751,
+      "trapawareprm_model_path_found": true,
+      "trapawareprm_model_path_length": 267.5754508304936,
+      "trapawareprm_model_build_ms": 717.6573970355093,
+      "trapawareprm_oracle_trap_rate": 0.02681992337164751,
+      "trapawareprm_oracle_path_found": true,
+      "trapawareprm_oracle_path_length": 264.9840107006534,
+      "trapawareprm_oracle_build_ms": 714.983131736517
+    },
+    {
+      "map": "0a4664b3787b86f84f6bb8e841a3dbd5.npy",
+      "start": [
+        132,
+        192
+      ],
+      "goal": [
+        379,
+        401
+      ],
+      "standardprm_trap_rate": 0.199203187250996,
+      "standardprm_path_found": true,
+      "standardprm_path_length": 341.08009420505454,
+      "standardprm_build_ms": 367.6090883091092,
+      "trapawareprm_model_trap_rate": 0.02490421455938697,
+      "trapawareprm_model_path_found": true,
+      "trapawareprm_model_path_length": 342.68096672722123,
+      "trapawareprm_model_build_ms": 722.933538723737,
+      "trapawareprm_oracle_trap_rate": 0.02490421455938697,
+      "trapawareprm_oracle_path_found": true,
+      "trapawareprm_oracle_path_length": 341.13396502273,
+      "trapawareprm_oracle_build_ms": 719.1514177247882
+    },
+    {
+      "map": "73cec5e4a7e986773929a1a83437f399.npy",
+      "start": [
+        39,
+        69
+      ],
+      "goal": [
+        79,
+        267
+      ],
+      "standardprm_trap_rate": 0.4701195219123506,
+      "standardprm_path_found": false,
+      "standardprm_path_length": 0.0,
+      "standardprm_build_ms": 354.30081281811,
+      "trapawareprm_model_trap_rate": 0.07662835249042145,
+      "trapawareprm_model_path_found": false,
+      "trapawareprm_model_path_length": 0.0,
+      "trapawareprm_model_build_ms": 715.4200822114944,
+      "trapawareprm_oracle_trap_rate": 0.06704980842911877,
+      "trapawareprm_oracle_path_found": false,
+      "trapawareprm_oracle_path_length": 0.0,
+      "trapawareprm_oracle_build_ms": 712.14105701074
+    },
+    {
+      "map": "618da03694f1771d47c9d3735836a74e.npy",
+      "start": [
+        233,
+        86
+      ],
+      "goal": [
+        261,
+        386
+      ],
+      "standardprm_trap_rate": 0.40836653386454186,
+      "standardprm_path_found": true,
+      "standardprm_path_length": 379.51773921107235,
+      "standardprm_build_ms": 363.96388337016106,
+      "trapawareprm_model_trap_rate": 0.07279693486590039,
+      "trapawareprm_model_path_found": true,
+      "trapawareprm_model_path_length": 406.3368751574005,
+      "trapawareprm_model_build_ms": 718.8782538287342,
+      "trapawareprm_oracle_trap_rate": 0.07088122605363985,
+      "trapawareprm_oracle_path_found": true,
+      "trapawareprm_oracle_path_length": 398.44488140374665,
+      "trapawareprm_oracle_build_ms": 723.7565889954567
+    },
+    {
+      "map": "5deb8469875e1dda75c119500f633c30.npy",
+      "start": [
+        191,
+        123
+      ],
+      "goal": [
+        478,
+        388
+      ],
+      "standardprm_trap_rate": 0.10358565737051793,
+      "standardprm_path_found": true,
+      "standardprm_path_length": 406.1990668867039,
+      "standardprm_build_ms": 371.09322706237435,
+      "trapawareprm_model_trap_rate": 0.02681992337164751,
+      "trapawareprm_model_path_found": true,
+      "trapawareprm_model_path_length": 398.18158130289555,
+      "trapawareprm_model_build_ms": 718.8487923704088,
+      "trapawareprm_oracle_trap_rate": 0.02681992337164751,
+      "trapawareprm_oracle_path_found": true,
+      "trapawareprm_oracle_path_length": 398.18158130289555,
+      "trapawareprm_oracle_build_ms": 720.758633222431
+    },
+    {
+      "map": "33c0e9479d03e51da812cdcf8cbf6dfe.npy",
+      "start": [
+        133,
+        209
+      ],
+      "goal": [
+        290,
+        440
+      ],
+      "standardprm_trap_rate": 0.23107569721115537,
+      "standardprm_path_found": true,
+      "standardprm_path_length": 388.3626910353209,
+      "standardprm_build_ms": 369.55103697255254,
+      "trapawareprm_model_trap_rate": 0.038314176245210725,
+      "trapawareprm_model_path_found": true,
+      "trapawareprm_model_path_length": 422.21012796134045,
+      "trapawareprm_model_build_ms": 720.5220493488014,
+      "trapawareprm_oracle_trap_rate": 0.038314176245210725,
+      "trapawareprm_oracle_path_found": true,
+      "trapawareprm_oracle_path_length": 421.31056906045666,
+      "trapawareprm_oracle_build_ms": 724.5102450251579
+    },
+    {
+      "map": "26c70d195c730c92e424ba89d281a54b.npy",
+      "start": [
+        127,
+        88
+      ],
+      "goal": [
+        375,
+        366
+      ],
+      "standardprm_trap_rate": 0.250996015936255,
+      "standardprm_path_found": true,
+      "standardprm_path_length": 616.4054522020824,
+      "standardprm_build_ms": 362.64367774128914,
+      "trapawareprm_model_trap_rate": 0.05747126436781609,
+      "trapawareprm_model_path_found": true,
+      "trapawareprm_model_path_length": 718.5523727597673,
+      "trapawareprm_model_build_ms": 726.437000092119,
+      "trapawareprm_oracle_trap_rate": 0.05747126436781609,
+      "trapawareprm_oracle_path_found": true,
+      "trapawareprm_oracle_path_length": 700.869439049551,
+      "trapawareprm_oracle_build_ms": 711.9202669709921
+    },
+    {
+      "map": "de368d865553d85e563d6f404a42103e.npy",
+      "start": [
+        252,
+        214
+      ],
+      "goal": [
+        281,
+        360
+      ],
+      "standardprm_trap_rate": 0.3386454183266932,
+      "standardprm_path_found": true,
+      "standardprm_path_length": 165.59082683960267,
+      "standardprm_build_ms": 368.16892214119434,
+      "trapawareprm_model_trap_rate": 0.07471264367816093,
+      "trapawareprm_model_path_found": true,
+      "trapawareprm_model_path_length": 170.08326018762978,
+      "trapawareprm_model_build_ms": 731.5706457011402,
+      "trapawareprm_oracle_trap_rate": 0.07279693486590039,
+      "trapawareprm_oracle_path_found": true,
+      "trapawareprm_oracle_path_length": 169.08794295755945,
+      "trapawareprm_oracle_build_ms": 718.5518443584442
+    }
+  ]
+}

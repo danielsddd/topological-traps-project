@@ -1,0 +1,142 @@
+[
+  {
+    "summary": {
+      "velocity": 0.0,
+      "d_brake_px": 0,
+      "n_maps": 20,
+      "iou_mean": 0.9874200243992369,
+      "iou_std": 0.010085852901689923,
+      "dice_mean": 0.9936441038468764,
+      "acc_mean": 0.9970364570617676,
+      "viable_frac_gt_mean": 0.37689571380615233,
+      "viable_frac_pred_mean": 0.37574119567871095,
+      "oracle_ms_mean": 177.134979236871,
+      "nn_ms_mean": 24.145566252991557,
+      "iou_N_mean": 0.9881272151273437,
+      "iou_S_mean": 0.9889841306620857,
+      "iou_E_mean": 0.9860303565632398,
+      "iou_W_mean": 0.9866581308470007
+    },
+    "per_map_count": 20
+  },
+  {
+    "summary": {
+      "velocity": 1.0,
+      "d_brake_px": 3,
+      "n_maps": 20,
+      "iou_mean": 0.9907431724146628,
+      "iou_std": 0.008783164386621857,
+      "dice_mean": 0.9953303485152356,
+      "acc_mean": 0.9979567527770996,
+      "viable_frac_gt_mean": 0.3675413131713867,
+      "viable_frac_pred_mean": 0.36713199615478515,
+      "oracle_ms_mean": 168.93777581863105,
+      "nn_ms_mean": 18.926339293830097,
+      "iou_N_mean": 0.9915662476849765,
+      "iou_S_mean": 0.9915107474095584,
+      "iou_E_mean": 0.9883556699504276,
+      "iou_W_mean": 0.9916449166027542
+    },
+    "per_map_count": 20
+  },
+  {
+    "summary": {
+      "velocity": 2.0,
+      "d_brake_px": 10,
+      "n_maps": 20,
+      "iou_mean": 0.984049164491287,
+      "iou_std": 0.012263733850494174,
+      "dice_mean": 0.9919216769858474,
+      "acc_mean": 0.9963554382324219,
+      "viable_frac_gt_mean": 0.34986419677734376,
+      "viable_frac_pred_mean": 0.34921703338623045,
+      "oracle_ms_mean": 164.14209369104356,
+      "nn_ms_mean": 18.92853695899248,
+      "iou_N_mean": 0.9876154389231819,
+      "iou_S_mean": 0.9817863499581817,
+      "iou_E_mean": 0.9792485723814093,
+      "iou_W_mean": 0.9876587109677948
+    },
+    "per_map_count": 20
+  },
+  {
+    "summary": {
+      "velocity": 3.0,
+      "d_brake_px": 23,
+      "n_maps": 20,
+      "iou_mean": 0.987663508412614,
+      "iou_std": 0.010496919271404075,
+      "dice_mean": 0.9937652409875725,
+      "acc_mean": 0.9976793766021729,
+      "viable_frac_gt_mean": 0.3419364929199219,
+      "viable_frac_pred_mean": 0.34238739013671876,
+      "oracle_ms_mean": 149.80013731401414,
+      "nn_ms_mean": 18.96651133429259,
+      "iou_N_mean": 0.9881116052334905,
+      "iou_S_mean": 0.9878312110975648,
+      "iou_E_mean": 0.9865168755749064,
+      "iou_W_mean": 0.9882032032095281
+    },
+    "per_map_count": 20
+  },
+  {
+    "summary": {
+      "velocity": 4.0,
+      "d_brake_px": 40,
+      "n_maps": 20,
+      "iou_mean": 0.9798116213979264,
+      "iou_std": 0.0157076291189918,
+      "dice_mean": 0.9897388198006393,
+      "acc_mean": 0.996696662902832,
+      "viable_frac_gt_mean": 0.3245277404785156,
+      "viable_frac_pred_mean": 0.32492523193359374,
+      "oracle_ms_mean": 131.3965298468247,
+      "nn_ms_mean": 18.99078511632979,
+      "iou_N_mean": 0.9800587357562899,
+      "iou_S_mean": 0.9807402227270725,
+      "iou_E_mean": 0.9784803130428635,
+      "iou_W_mean": 0.9797384300401344
+    },
+    "per_map_count": 20
+  },
+  {
+    "summary": {
+      "velocity": 5.0,
+      "d_brake_px": 63,
+      "n_maps": 20,
+      "iou_mean": 0.9787036698237317,
+      "iou_std": 0.019320716877464478,
+      "dice_mean": 0.9891396655877106,
+      "acc_mean": 0.9976289749145508,
+      "viable_frac_gt_mean": 0.2902273178100586,
+      "viable_frac_pred_mean": 0.29048500061035154,
+      "oracle_ms_mean": 111.5812917938456,
+      "nn_ms_mean": 18.946997495368123,
+      "iou_N_mean": 0.980168088578778,
+      "iou_S_mean": 0.9794119903644782,
+      "iou_E_mean": 0.9766241415698526,
+      "iou_W_mean": 0.9763382434558571
+    },
+    "per_map_count": 20
+  },
+  {
+    "summary": {
+      "velocity": 6.0,
+      "d_brake_px": 90,
+      "n_maps": 20,
+      "iou_mean": 0.9613835689073481,
+      "iou_std": 0.0368047357444858,
+      "dice_mean": 0.9799413020732676,
+      "acc_mean": 0.9971761703491211,
+      "viable_frac_gt_mean": 0.24335079193115233,
+      "viable_frac_pred_mean": 0.24445953369140624,
+      "oracle_ms_mean": 88.20760662201792,
+      "nn_ms_mean": 18.959660921245813,
+      "iou_N_mean": 0.9640873975832734,
+      "iou_S_mean": 0.9638345673218007,
+      "iou_E_mean": 0.9239953919817376,
+      "iou_W_mean": 0.9372800712314298
+    },
+    "per_map_count": 20
+  }
+]
